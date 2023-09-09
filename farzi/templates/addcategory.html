@@ -1,0 +1,370 @@
+
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Category-add</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+    />
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/simple-line-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/ionicons.min.css' %}">
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins.css' %}">
+    
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/search.css' %}">
+
+    <style>
+      @media (min-width: 1025px) {
+        .h-custom {
+          height: 100vh !important;
+        }
+      }
+
+      .card-registration .select-input.form-control[readonly]:not([disabled]) {
+        font-size: 1rem;
+        line-height: 2.15;
+        padding-left: 0.75em;
+        padding-right: 0.75em;
+      }
+
+      .card-registration .select-arrow {
+        top: 13px;
+      }
+
+      .gradient-custom-2 {
+        /* fallback for old browsers */
+        background: #a1c4fd;
+
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(
+          to right,
+          rgba(161, 196, 253, 1),
+          rgba(194, 233, 251, 1)
+        );
+
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(
+          to right,
+          rgba(161, 196, 253, 1),
+          rgba(194, 233, 251, 1)
+        );
+      }
+
+      .bg-indigo {
+        background-color: #4835d4;
+      }
+
+      @media (min-width: 992px) {
+        .card-registration-2 .bg-indigo {
+          border-top-right-radius: 15px;
+          border-bottom-right-radius: 15px;
+        }
+      }
+
+      @media (max-width: 991px) {
+        .card-registration-2 .bg-indigo {
+          border-bottom-left-radius: 15px;
+          border-bottom-right-radius: 15px;
+        }
+      }
+    </style>
+    <script>
+
+
+   var pwd_expression = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&amp;*-])/;
+      var letters = /^[A-Za-z]+$/;
+      var lettersnew = /^[A-Za-z0-9]+$/;
+      var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+     
+function validateName(){
+
+ var name = document.getElementById('FirstName').value;
+
+    if(name.length == 0){ 
+        document.getElementById('FirstNameerror').style.color="#ff0550";
+        document.getElementById('FirstNameerror').innerHTML="First name is required";
+        return false;
+    }
+   if(!letters.test(name)){
+
+    document.getElementById('FirstNameerror').innerHTML="Firstname only contain alphabetic characters";
+    document.getElementById('FirstNameerror').style.color="#ff0550"; 
+    return false;
+
+    }
+
+    document.getElementById('FirstNameerror').innerHTML="<i class='fa fa-check-circle'</i>";
+    // document.getElementById('FirstNameerror').innerHTML="valid name";
+    document.getElementById('FirstNameerror').style.color="#59cc33";
+
+    return true;
+ 
+}
+
+function validateLastName(){
+
+var Lastname = document.getElementById('lastName').value;
+   if(Lastname.length == 0){
+
+       document.getElementById('lastName-error').style.color="#ff0550";
+       document.getElementById('lastName-error').innerHTML="Last name is required";
+       return false;
+   }
+  if(!letters.test(Lastname)){
+
+   document.getElementById('lastName-error').innerHTML="Lastname only contain alphabetic characters";
+   document.getElementById('lastName-error').style.color="#ff0550";
+   return false;
+
+   }
+   document.getElementById('lastName-error').innerHTML="<i class='fa fa-check-circle'</i>";
+   
+   document.getElementById('lastName-error').style.color="#59cc33";
+   return true;
+
+   
+}
+function ValidateUserName(){
+
+    var Username = document.getElementById('userName').value;
+    if(Username.length == 0){
+
+       document.getElementById('userName-error').style.color="#ff0550";
+       document.getElementById('userName-error').innerHTML="User name is required";
+       return false;
+    } 
+
+    if(!letters.test(Username)){
+
+     document.getElementById('userName-error').innerHTML="Username contain only alphabetic characters";
+     document.getElementById('userName-error').style.color="#ff0550";
+      return false;
+
+    }
+
+       document.getElementById('userName-error').innerHTML="<i class='fa fa-check-circle'</i>";
+   
+       document.getElementById('userName-error').style.color="#59cc33";
+       return true;
+
+
+}
+function validateEmail(){
+
+    var Email = document.getElementById('email').value;
+
+     if(Email.length == 0){
+
+       document.getElementById('email-error').style.color="#ff0550";
+       document.getElementById('email-error').innerHTML="Email is required";
+       return false;
+    } 
+   if(!filter.test(Email)){
+
+    document.getElementById('email-error').innerHTML="Invalid Email Entered";
+     document.getElementById('email-error').style.color="#ff0550";
+      return false;
+
+   }
+   document.getElementById('email-error').innerHTML="<i class='fa fa-check-circle'</i>";
+   
+   document.getElementById('email-error').style.color="#59cc33";
+    return true;
+
+}
+function validatePassword(){
+
+    var Password = document.getElementById('password').value;
+
+    if(Password.length == 0 ){
+
+       document.getElementById('password-error').style.color="#ff0550";
+       document.getElementById('password-error').innerHTML="Password is required";
+       return false;
+
+     }    
+    if(Password.length < 6 ){
+
+       document.getElementById('password-error').style.color="#ff0550";
+       document.getElementById('password-error').innerHTML="Password length must be greater than 6";
+       return false;
+
+     } 
+
+
+     if(!pwd_expression.test(Password)){
+
+         document.getElementById('password-error').style.color="#ff0550";
+         document.getElementById('password-error').innerHTML=" upper,lower case, special characters and numeric required ";
+         return false;
+
+     }
+
+        document.getElementById('password-error').innerHTML="<i class='fa fa-check-circle'</i>";
+   
+       document.getElementById('password-error').style.color="#59cc33";
+        return true;
+
+
+}
+function validateConfirmPass(){
+
+    var Password = document.getElementById('password').value;
+    var CPassword = document.getElementById('cpassword').value;
+
+      if(CPassword.length == 0 ){
+
+       document.getElementById('cpassword-error').style.color="#ff0550";
+       document.getElementById('cpassword-error').innerHTML="Confirm Password is required";
+       return false;
+
+     } 
+     if(Password !== CPassword){
+
+        document.getElementById('cpassword-error').style.color="#ff0550";
+         document.getElementById('cpassword-error').innerHTML="Password didn't matched";
+         return false;
+
+
+     }
+
+     document.getElementById('cpassword-error').innerHTML="<i class='fa fa-check-circle'</i>";
+     document.getElementById('cpassword-error').style.color="#59cc33";
+      return true;
+
+
+
+}
+
+
+
+    
+</script>
+  </head>
+
+  <body>
+    
+    <div class="header-area">
+      <div class="header-bottom-area header-sticky">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-8 col-md-5 col-5 d-flex mt-2">
+                      <div class="logo " style="margin-top: 20px;  margin-right: 180px;">
+                          <a href="{% url 'index' %}">
+                              <img style="width:100px; height:80px;" src="{% static 'assets\images\logo\lo.jpg' %}" alt="hai"></a>
+                      </div>
+                      <div class="search mt-4" style="width:500px;">
+                         <h2 class="text-uppercase"><B> Update Category</B></h2>
+                      </div> 
+                      
+                  </div>
+                  <div class="col-lg-4 d-none d-lg-block ">
+                      <div class="main-menu-area text-center ">
+                          <nav class="main-navigation ">
+                              <ul><li><a href="{% url 'admindashboard' %}" class="nav-link"><B>Dashboard</B> </a></li>
+                                  
+                                          {% if  user.is_authenticated %}
+                                          {% if user.role == 2 %}
+                                  
+                                          {% else %}
+                                                  <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
+                                  {% endif %}
+                                  {% endif %}
+                              </ul>
+                          </nav>
+                      </div>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- header-area end -->
+     
+        
+        <form action="" method="POST" enctype="multipart/form-data">
+      {% for i in station %}
+      {% csrf_token %}
+
+      <section class="gray ">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-lg-9 col-md-8">
+              <div class="dashboard-body">
+                <div class="dashboard-wraper">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                      <div class="submit-page px-0">
+                      <div class="frm_submit_block  ">
+                        <div class="frm_submit_wrap">
+                          
+    <div class="d-flex justify-content-center align-items-center" style="height: 28vh;">
+      <img class="rounded  " src="{{ i.category_image.url }}" alt="Profile Picture" style="width: 200px; height: 200px;" />
+  </div>
+                          <div class="row"> 
+                            <div class="form-group col-md-6 pd-20"> 
+                              
+    <label class="form-label" for="form3Examplev2">Category name</label>
+    <input type="text"  id="form3Examplev2" name="category_name" class="form-control form-control-lg"
+    value="{{ i.category_name }}"/>  </div>
+                                
+  <div class="form-group col-md-6 pd-20"> <label class="form-label" for="form3Examplev2"></label>
+    <label class="form-label" for="form3Examplev5">Change Photo</label>
+    <input type="file" id="form3Examplev5" name="category_image"
+    class="form-control form-control-lg"/>
+  </div>
+                      
+                  
+  <div class="form-group col-md-6 pd-20"> 
+    <label class="form-label" for="form3Examplev2">Subcategory 1 name</label>
+    <input type="text"  id="subcategory1_name" name="subcategory1_name" class="form-control form-control-lg"
+    value="{{ i.subcategory1_name }}"/>
+  </div>
+                
+    
+  <div class="form-group col-md-6 pd-20"> 
+    <label class="form-label" for="form3Examplev2">Subcategory 2 name</label>
+    <input type="text"  id="subcategory2_name" name="subcategory2_name" class="form-control form-control-lg"
+    value="{{ i.subcategory2_name }}"/>
+  </div>
+    
+  <div class="form-group col-md-6 pd-20"> 
+    <label class="form-label" for="form3Examplev2">Subcategory 3 name </label>
+    <input type="text"  id="subcategory3_name" name="subcategory3_name" class="form-control form-control-lg"
+    value="{{ i.subcategory3_name }}"/>
+  </div>
+  
+  <div class="form-group col-md-6 pd-20"> 
+    <label class="form-label" for="form3Examplev2">Subcategory 4 name </label>
+    <input type="text"  id="subcategory4_name" name="subcategory4_name" class="form-control form-control-lg"
+    value="{{ i.subcategory4_name }}"/>
+  </div>
+      {% endfor %}
+      <br>
+      <div class="col-md-9 pd-20" style="margin-left: 500px;"> 
+      <button type="submit" class="btn btn-light btn-lg" data-mdb-ripple-color="dark" >
+        Update </button>
+      </div>
+    </form>
+  </body>
+</html>

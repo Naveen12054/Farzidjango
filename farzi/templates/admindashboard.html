@@ -1,0 +1,165 @@
+
+{% load static %} 
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap-extended.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/fonts/simple-line-icons/style.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/colors.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/simple-line-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/ionicons.min.css' %}">
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins.css' %}">
+    
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/search.css' %}">
+    
+    <!-- Modernizer JS -->
+    <script src="{% static 'assets/js/vendor/modernizr-2.8.3.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<div class="grey-bg container-fluid">
+  
+   <div class="header-area">
+    <div class="header-bottom-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-5 col-5 d-flex mt-2">
+                    <div class="logo " style="margin-top: 20px;  margin-right: 180px;">
+                        <a href="{% url 'index' %}">
+                            <img style="width:100px; height:80px;" src="{% static 'assets\images\logo\lo.jpg' %}" alt="hai"></a>
+                    </div>
+                    <div class="search mt-4" style="width:500px;">
+                       <h2 class="text-uppercase"><B>Admin Dashboard</B></h2>
+                    </div> 
+                    
+                </div>
+                <div class="col-lg-4 d-none d-lg-block ">
+                    <div class="main-menu-area text-center ">
+                        <nav class="main-navigation ">
+                            <ul><li><a href="#" class="nav-link"><B>Home</B> </a></li>
+                                
+                                        {% if  user.is_authenticated %}
+                                        {% if user.role == 2 %}
+                                
+                                        {% else %}
+                                                <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
+                                {% endif %}
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- header-area end -->
+
+  <section id="stats-subtitle">
+  <div class="row">
+    <div class="col-12 mt-3 mb-1">
+    </div>
+  </div>
+
+  <div class="row ml-5 mr-5">
+    <div class="col-xl-6 col-md-12">
+      <div class="card overflow-hidden">
+        <div class="card-content">
+          <div class="card-body cleartfix">
+            <div class="media align-items-stretch">
+              <div class="align-self-center">
+                {% comment %} <i class="bi bi-person-lines-fill primary font-large-2 mr-2"></i> {% endcomment %}
+                <i class="icon-pencil primary font-large-2 mr-2"></i>
+              </div>
+              <div class="media-body">
+                <h4><b><a href="{% url 'sellerprofile' %}" style="text-decoration: none; color: black;">Seller Profiles</a> </b></h4>
+                <span>Manage your Seller</span>
+              </div>
+              <div class="align-self-center">
+                <!-- <h1>18,000</h1> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-md-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body cleartfix">
+            <div class="media align-items-stretch">
+              <div class="align-self-center">
+                
+                <i class="icon-rocket danger font-large-2 mr-2"></i>
+              </div>
+              <div class="media-body">
+                <h4><b><a href="{% url 'category' %}" style="text-decoration: none; color: black;">Category Management</a> </b></h4>
+                <span>View and delete listed products</span>
+              </div>
+              <div class="align-self-center"> 
+                <!-- <h1>84,695</h1> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row ml-5 mr-5">
+    <div class="col-xl-6 col-md-12">
+      <div class="card overflow-hidden">
+        <div class="card-content">
+          <div class="card-body cleartfix">
+            <div class="media align-items-stretch">
+              <div class="align-self-center">
+                <i class="icon-cup primary font-large-2 mr-2"></i>
+              </div>
+              <div class="media-body">
+                <h4><b><a href="{% url 'newcategory' %}" style="text-decoration: none; color: black;">Add Category</a> </b></h4>
+                <span>Add a new Category to cataloge</span>
+              </div>
+              <div class="align-self-center">
+                <!-- <h1>18,000</h1> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-md-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body cleartfix">
+            <div class="media align-items-stretch">
+              <div class="align-self-center">
+                <i class="icon-graph success font-large-2 mr-2"></i>
+              </div>
+              <div class="media-body">
+                <h4><b><a href="{% url 'sellerprofile' %}" style="text-decoration: none; color: black;">Order Management</a> </b></h4>
+                <span>View the Orders</span>
+              </div>
+              <div class="align-self-center"> 
+                <!-- <h1>84,695</h1> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+</div>

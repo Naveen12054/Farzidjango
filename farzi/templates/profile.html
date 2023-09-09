@@ -1,0 +1,289 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Farzi - Furniture eCommerce Store</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'assets/images/favicon.ico' %}"
+    />
+
+    <!-- CSS 
+    ========================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+
+    <!-- Icon Font CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/simple-line-icons.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/ionicons.min.css' %}" />
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins.css' %}" />
+
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'assets/css/search.css' %}" />
+
+    <!-- Modernizer JS -->
+    <script src="{% static 'assets/js/vendor/modernizr-2.8.3.min.js' %}"></script>
+   
+  </head>
+
+  <body>
+    
+    <!-- Main Wrapper Start -->
+    <div class="main-wrapper">
+      
+<div class="a">
+  
+  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light " id="ftco-navbar">
+    <div class="container ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="fa fa-bars"></span> Menu
+      </button>
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link">Sofa</a></li>
+          
+          <li class="nav-item"><a href="product.html" class="nav-link">Recliners</a></li>
+          <li class="nav-item"><a href="pets.html" class="nav-link">Tables</a></li>
+          <li class="nav-item"><a href="services.html" class="nav-link">Chairs</a></li>
+      <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Bed</a></li>
+        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Lounge Chairs</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Wardrobes</a></li>
+      <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">
+    </div>
+  </nav>
+
+</div>
+       <div class="header-area">
+        <div class="header-bottom-area header-sticky">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 col-md-5 col-5 d-flex mt-2">
+                <div class="logo" style="margin-top: 20px; margin-right: 180px">
+                  <a href="{% url 'index' %}">
+                    <img
+                      style="width: 150px; height: 100px"
+                      src="{% static 'assets\images\logo\lo.jpg' %}"
+                      alt="hai"
+                  /></a>
+                </div>
+                <div class="search mt-4" style="width: 500px">
+                  <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Search..."
+                    name=""
+                  />
+                  <a href="{% url 'index' %}">
+                    <img
+                      src="{% static 'assets\images\search.png' %}"
+                      style="height: 20px"
+                      alt="hai"
+                  /></a>
+                </div>
+              </div>
+              <div class="col-lg-4 d-none  d-sm-block d-lg-block">
+                <div class="main-menu-area text-center">
+                  <nav class="main-navigation">
+                    <ul>
+                      <li>
+                        <a href="#" class="nav-link">
+                          <img
+                            src="{% static 'assets/images/heart.png' %}"
+                            alt=""
+                            style="height: 20px"
+                          />
+                        </a>
+                      <li>
+                        <a href="#" class="nav-link">
+                          <img
+                            src="{% static 'assets/images/cart.png' %}"
+                            alt=""
+                            style="height: 20px"
+                          />
+                        </a>
+                      </li>
+
+                      <li>
+                        <b>{{user.name}}</b>
+                        <ul class="sub-menu">
+                          {% if user.is_authenticated %}
+
+                          <li>
+                            <a
+                              href="{% url 'logout' %}"
+                              class="nav-item nav-link"
+                              >Log Out</a
+                            >
+                          </li>
+                          <br />
+                          <li>
+                            <a
+                              href="{% url 'profile' %}"
+                              class="nav-item nav-link"
+                              >Profile</a
+                            >
+                          </li>
+                          {% else %}
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="{% url 'logy' %}" class="nav-link">
+                          <img
+                            src="{% static 'assets/images/profile.png' %}"
+                            alt=""
+                            style="height: 20px"
+                          />
+                        </a>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- header-area end -->
+
+
+
+
+      
+    </div>
+    <!-- Main Wrapper End -->
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+    <section class="gray pt-5 pb-5">
+      <div class="container-fluid">
+  
+        <div class="row justify-content-center">
+  
+          <div class="col-lg-9 col-md-8">
+            <div class="dashboard-body">
+  
+              <div class="dashboard-wraper">
+                <div class="row">
+  
+                  <div class="col-lg-12 col-md-12">
+                    <div class="submit-page px-0">
+  
+                      <!-- Basic Information -->
+                      <div class="frm_submit_block  mb-5">
+                        <div class="frm_submit_wrap">
+                          <div class="row">
+  
+  
+                            
+                          <div class="form-group col-md-6 pd-20">
+                            <label class="mt-2 mb-1">First Name</label>
+                            <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}" >
+                          </div>
+                          <div class="form-group col-md-6 pd-20">
+                            <label class="mt-2 mb-1">Last Name</label>
+                            <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}" >
+                          </div>
+                          <div class="form-group col-md-6 pd-20">
+                            <label class="mt-2 mb-1">Email</label>
+                            <input type="text" name="email" class="form-control" value="{{ user.email }}" disabled>
+                        </div>
+                        
+                        <div class="form-group col-md-6 pd-20">
+                          <label class="mt-2 mb-1">Phone Number</label>
+                          <input type="text" id="phone_no" name="phone_no"  class="form-control" value="{{ user_profile.phone_no }}" >
+                        </div>
+                        
+                        <div class="form-group col-md-6 pd-20">
+                          <label class="mt-2 mb-1">Address Line 1</label>
+                          <input type="text" name="addressline1" class="form-control" value="{{ user_profile.addressline1 }}" >
+                        </div>
+                        
+                        <div class="form-group col-md-6 pd-20">
+                          <label class="mt-2 mb-1">Address Line 2</label>
+                          <input type="text" name="addressline2" class="form-control" value="{{ user_profile.addressline2 }}" >
+                        </div>
+                          <div class="form-group col-md-6 pd-20">
+                            <label class="mt-2 mb-1">City</label>
+                            <input type="text" name="city" class="form-control" value="{{ user_profile.city }}" >
+                          </div>
+                          <div class="form-group col-md-6 pd-20">
+                            <label class="mt-2 mb-1">District</label>
+                            <input type="text" name="district" class="form-control" value="{{ user_profile.district }}" >
+                          </div>
+                          
+                          <div class="form-group col-md-6 pd-20">
+                            <label class="mt-2 mb-1">State</label>
+                            <input type="text" name="state" class="form-control" value="{{ user_profile.state }}" >
+                          </div>
+                          <div class="form-group col-md-6 pd-20">
+                            <label class="mt-2 mb-1">country</label>
+                            <input type="text" name="country" class="form-control" value="{{ user_profile.country }}" >
+                          </div>
+                          <div class="form-group col-md-6 pd-20">
+                            <label class="mt-2 mb-1">pincode</label>
+                            <input type="text" name="pin_code" class="form-control" value="{{ user_profile.pin_code }}" >
+                          </div>
+                          <div class="form-group col-md-6 pd-20">
+                            <label class="mt-2 mb-1">Alternate Phone Number</label>
+                            <input type="text" id="aphone_no" name="aphone_no"  class="form-control" value="{{ user_profile.aphone_no }}" >
+                          </div>
+                          
+                            <!-- More form fields... -->
+  
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group col-lg-12 col-md-12 text-center">
+                        <button class="btn btn-success" type="submit">Update</button>
+                      </div>
+  
+                    </div>
+                  </div>
+  
+                </div>
+  
+              </div>
+              <!-- row -->
+  
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </section>
+  </form>
+    <!-- JS
+============================================ -->
+
+    <!-- jquery -->
+    <script src="{% static 'assets/js/vendor/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!-- Plugins JS -->
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
+    <!-- Ajax Mail -->
+    <script src="{% static 'assets/js/ajax-mail.js' %}"></script>
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+  </body>
+</html>
