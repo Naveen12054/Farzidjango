@@ -37,7 +37,44 @@
     
 </head>
 <script>
+ 
   $(document).ready(function () {
+    $('#category').on('change', function() {
+      // Get the selected value
+      var selectedValue = $(this).val();
+      $.ajax({
+        url: "{% url 'categoryajax' '0' %}".replace('0', selectedValue), // Replace with your API endpoint
+        method: 'GET',
+        dataType: 'json', // Expect JSON response
+        success: function(data) {
+            // Get the select element
+            var selectElement = $('#subcategory');
+    
+            // Clear existing options (optional)
+            selectElement.empty();
+    
+            // Loop through the data and create options
+            for (var i = 0; i < data.length; i++) {
+                var color = data[i];
+                
+                // Create a new option element
+                var option = $('<option>', {
+                    value: color, // The value of the option
+                    text: color    // The text displayed to the user
+                });
+    
+                // Append the option to the select element
+                selectElement.append(option);
+            }
+        },
+        error: function() {
+            // Handle any errors
+            $('#result').html('Error occurred.');
+        }
+    });
+    
+  });
+
     $("#product_name").keyup(function () {
       validatepName("#product_name");
     });
@@ -108,7 +145,6 @@
       return true
     }
   }
-
 </script>
 
 </html>
@@ -173,11 +209,11 @@
               <label for="brandName">Brand Name:</label>
                 <select class="form-control" id="brand_name" name="brand_name"required>
                   <option value="">Choose a brand...</option>
-                  <option value="ikea">IKEA</option>
-                  <option value="ashley">Ashley Furniture</option>
-                  <option value="wayfair">Wayfair</option>
-                  <option value="cratebarrel">Crate & Barrel</option>
-                  <option value="potterybarn">Pottery Barn</option>
+                  <option value="IKEA">IKEA</option>
+                  <option value="Ashley Furniture">Ashley Furniture</option>
+                  <option value="Wayfair">Wayfair</option>
+                  <option value="Crate & Barrel">Crate & Barrel</option>
+                  <option value="Pottery Barn">Pottery Barn</option>
                   <!-- Add more options as needed -->
               </select></div>
                                 
@@ -202,6 +238,7 @@
               <div class="form-group col-md-6 pd-20"> 
                      <label for="productCategory">Product Category:</label>
                 <select class="form-control" id="category" name="category" required>
+                  <option value="">Choose a Category...</option>
                     {% for i in stdata %}
                     <option value={{ i.category_name }}>{{ i.category_name }}</option>
                     
@@ -214,14 +251,15 @@
               <div class="form-group col-md-6 pd-20"> 
                 <label for="productCategory">Product Sub Category:</label>
               <select class="form-control" id="subcategory" name="subcategory" required>
-                  {% for i in stdata %}
+                <option value="">Choose a SubCategory...</option>
+                  {% comment %} {% for i in stdata %}
                   <option value={{ i.subcategory1_name }}>{{ i.subcategory1_name }}</option>
                   
                   <option value={{ i.subcategory2_name }}>{{ i.subcategory2_name }}</option>
                   
                   <option value={{ i.subcategory3_name }}>{{ i.subcategory3_name }}</option>
                   {% endfor %}
-                  
+                   {% endcomment %}
                   <!-- Add more options as needed -->
               </select>
             </div>

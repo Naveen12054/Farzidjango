@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
@@ -145,7 +146,12 @@ class Product(models.Model):
     product_images2 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
     product_images3 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
     product_images4 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    length = models.CharField(max_length=255, null=True)
+    breadth = models.CharField(max_length=255, null=True)
+    height = models.CharField(max_length=255, null=True)
+
     status=models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.product_name

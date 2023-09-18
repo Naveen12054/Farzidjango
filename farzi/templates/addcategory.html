@@ -1,4 +1,3 @@
-
 {% load static %}
 <html lang="en">
   <head>
@@ -17,7 +16,11 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
     />
-    
+    <!-- jQuery -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     
@@ -27,10 +30,8 @@
     
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/plugins.css' %}">
-    
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-
     <link rel="stylesheet" href="{% static 'assets/css/search.css' %}">
 
     <style>
@@ -89,177 +90,117 @@
       }
     </style>
     <script>
-
-
-   var pwd_expression = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&amp;*-])/;
-      var letters = /^[A-Za-z]+$/;
-      var lettersnew = /^[A-Za-z0-9]+$/;
-      var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-     
-function validateName(){
-
- var name = document.getElementById('FirstName').value;
-
-    if(name.length == 0){ 
-        document.getElementById('FirstNameerror').style.color="#ff0550";
-        document.getElementById('FirstNameerror').innerHTML="First name is required";
-        return false;
-    }
-   if(!letters.test(name)){
-
-    document.getElementById('FirstNameerror').innerHTML="Firstname only contain alphabetic characters";
-    document.getElementById('FirstNameerror').style.color="#ff0550"; 
-    return false;
-
-    }
-
-    document.getElementById('FirstNameerror').innerHTML="<i class='fa fa-check-circle'</i>";
-    // document.getElementById('FirstNameerror').innerHTML="valid name";
-    document.getElementById('FirstNameerror').style.color="#59cc33";
-
-    return true;
- 
-}
-
-function validateLastName(){
-
-var Lastname = document.getElementById('lastName').value;
-   if(Lastname.length == 0){
-
-       document.getElementById('lastName-error').style.color="#ff0550";
-       document.getElementById('lastName-error').innerHTML="Last name is required";
-       return false;
-   }
-  if(!letters.test(Lastname)){
-
-   document.getElementById('lastName-error').innerHTML="Lastname only contain alphabetic characters";
-   document.getElementById('lastName-error').style.color="#ff0550";
-   return false;
-
-   }
-   document.getElementById('lastName-error').innerHTML="<i class='fa fa-check-circle'</i>";
-   
-   document.getElementById('lastName-error').style.color="#59cc33";
-   return true;
-
-   
-}
-function ValidateUserName(){
-
-    var Username = document.getElementById('userName').value;
-    if(Username.length == 0){
-
-       document.getElementById('userName-error').style.color="#ff0550";
-       document.getElementById('userName-error').innerHTML="User name is required";
-       return false;
-    } 
-
-    if(!letters.test(Username)){
-
-     document.getElementById('userName-error').innerHTML="Username contain only alphabetic characters";
-     document.getElementById('userName-error').style.color="#ff0550";
-      return false;
-
-    }
-
-       document.getElementById('userName-error').innerHTML="<i class='fa fa-check-circle'</i>";
-   
-       document.getElementById('userName-error').style.color="#59cc33";
-       return true;
-
-
-}
-function validateEmail(){
-
-    var Email = document.getElementById('email').value;
-
-     if(Email.length == 0){
-
-       document.getElementById('email-error').style.color="#ff0550";
-       document.getElementById('email-error').innerHTML="Email is required";
-       return false;
-    } 
-   if(!filter.test(Email)){
-
-    document.getElementById('email-error').innerHTML="Invalid Email Entered";
-     document.getElementById('email-error').style.color="#ff0550";
-      return false;
-
-   }
-   document.getElementById('email-error').innerHTML="<i class='fa fa-check-circle'</i>";
-   
-   document.getElementById('email-error').style.color="#59cc33";
-    return true;
-
-}
-function validatePassword(){
-
-    var Password = document.getElementById('password').value;
-
-    if(Password.length == 0 ){
-
-       document.getElementById('password-error').style.color="#ff0550";
-       document.getElementById('password-error').innerHTML="Password is required";
-       return false;
-
-     }    
-    if(Password.length < 6 ){
-
-       document.getElementById('password-error').style.color="#ff0550";
-       document.getElementById('password-error').innerHTML="Password length must be greater than 6";
-       return false;
-
-     } 
-
-
-     if(!pwd_expression.test(Password)){
-
-         document.getElementById('password-error').style.color="#ff0550";
-         document.getElementById('password-error').innerHTML=" upper,lower case, special characters and numeric required ";
-         return false;
-
-     }
-
-        document.getElementById('password-error').innerHTML="<i class='fa fa-check-circle'</i>";
-   
-       document.getElementById('password-error').style.color="#59cc33";
-        return true;
-
-
-}
-function validateConfirmPass(){
-
-    var Password = document.getElementById('password').value;
-    var CPassword = document.getElementById('cpassword').value;
-
-      if(CPassword.length == 0 ){
-
-       document.getElementById('cpassword-error').style.color="#ff0550";
-       document.getElementById('cpassword-error').innerHTML="Confirm Password is required";
-       return false;
-
-     } 
-     if(Password !== CPassword){
-
-        document.getElementById('cpassword-error').style.color="#ff0550";
-         document.getElementById('cpassword-error').innerHTML="Password didn't matched";
-         return false;
-
-
-     }
-
-     document.getElementById('cpassword-error').innerHTML="<i class='fa fa-check-circle'</i>";
-     document.getElementById('cpassword-error').style.color="#59cc33";
-      return true;
-
-
-
-}
-
-
-
+      $(document).ready(function () {
+        $("#subcategory1_name").keyup(function () {
+          validatesub1Name("#subcategory1_name");
+        });
+        $("#subcategory2_name").keyup(function () {
+          validatesub2Name("#subcategory2_name");
+        });
+        $("#subcategory3_name").keyup(function () {
+          validatesub3Name("#subcategory3_name");
+        });
+        $("#subcategory4_name").keyup(function () {
+          validatesub4Name("#subcategory4_name");
+        });
+        $("#category_name").keyup(function () {
+          validatecat("#category_name");
+        });
+        
+      });
     
-</script>
+      function validatesub1Name(fieldId) {
+        var name = $(fieldId).val();
+        var lettersWithSpaces = /^[A-Za-z\s]+$/;
+        var submitButton = $("#btn1");
+        if (name.trim() === "") {
+          $("#subcatspan").html("Enter the  First SubCategory").css("color", "red");
+          submitButton.prop("disabled", true);
+          return false
+        } else if (!lettersWithSpaces.test(name)) {
+          $("#subcatspan").html("Subcategory field contains alphabetical values").css("color", "red");
+          submitButton.prop("disabled", true);
+          return false
+        } else {
+          $("#subcatspan").html("");
+          submitButton.prop("disabled", false);
+          return true
+        }
+      }
+      
+      function validatesub2Name(fieldId) {
+        var name = $(fieldId).val();
+        var lettersWithSpaces = /^[A-Za-z\s]+$/;
+        var submitButton = $("#btn1");
+        if (name.trim() === "") {
+          $("#subcat2span").html("Enter the  Second SubCategory").css("color", "red");
+          submitButton.prop("disabled", true);
+          return false
+        } else if (!lettersWithSpaces.test(name)) {
+          $("#subcat2span").html("Subcategory field contains alphabetical values").css("color", "red");
+          submitButton.prop("disabled", true);
+          return false
+        } else {
+          $("#subcat2span").html("");
+          submitButton.prop("disabled", false);
+          return true
+        }
+      }
+      function validatesub3Name(fieldId) {
+        var name = $(fieldId).val();
+        var lettersWithSpaces = /^[A-Za-z\s]+$/;
+        var submitButton = $("#btn1");
+        if (name.trim() === "") {
+          $("#subcat3span").html("Enter the  Third SubCategory").css("color", "red");
+          submitButton.prop("disabled", true);
+          return false
+        } else if (!lettersWithSpaces.test(name)) {
+          $("#subcat3span").html("Subcategory field contains alphabetical values").css("color", "red");
+          submitButton.prop("disabled", true);
+          return false
+        } else {
+          $("#subcat3span").html("");
+          submitButton.prop("disabled", false);
+          return true
+        }
+      }
+      function validatesub4Name(fieldId) {
+        var name = $(fieldId).val();
+        var lettersWithSpaces = /^[A-Za-z\s]+$/;
+        var submitButton = $("#btn1");
+        if (name.trim() === "") {
+          $("#subcat4span").html("Enter the  Fourth SubCategory").css("color", "red");
+          submitButton.prop("disabled", true);
+          return false
+        } else if (!lettersWithSpaces.test(name)) {
+          $("#subcat4span").html("Subcategory field contains alphabetical values").css("color", "red");
+          submitButton.prop("disabled", true);
+          return false
+        } else {
+          $("#subcat4span").html("");
+          submitButton.prop("disabled", false);
+          return true
+        }
+      }
+      function validatecat(fieldId) {
+        var name = $(fieldId).val();
+        var lettersWithSpaces = /^[A-Za-z\s]+$/;
+        var submitButton = $("#btn1");
+        if (name.trim() === "") {
+          $("#subcat").html("Enter the Category name").css("color", "red");
+          submitButton.prop("disabled", true);
+          return false
+        } else if (!lettersWithSpaces.test(name)) {
+          $("#subcat").html("category field contains alphabetical values").css("color", "red");
+          submitButton.prop("disabled", true);
+          return false
+        } else {
+          $("#subcat").html("");
+          submitButton.prop("disabled", false);
+          return true
+        }
+      }
+    </script>
   </head>
 
   <body>
@@ -321,24 +262,21 @@ function validateConfirmPass(){
     <div class="d-flex justify-content-center align-items-center" style="height: 28vh;">
       <img class="rounded  " src="{{ i.category_image.url }}" alt="Profile Picture" style="width: 200px; height: 200px;" />
   </div>
-                          <div class="row"> 
-                            <div class="form-group col-md-6 pd-20"> 
-                              
+    <div class="row"> 
+    <div class="form-group col-md-6 pd-20">   
     <label class="form-label" for="form3Examplev2">Category name</label>
     <input type="text"  id="form3Examplev2" name="category_name" class="form-control form-control-lg"
-    value="{{ i.category_name }}"/>  </div>
-                                
-  <div class="form-group col-md-6 pd-20"> <label class="form-label" for="form3Examplev2"></label>
-    <label class="form-label" for="form3Examplev5">Change Photo</label>
-    <input type="file" id="form3Examplev5" name="category_image"
-    class="form-control form-control-lg"/>
-  </div>
+    value="{{ i.category_name }}"/> 
+    <span id="catspan"></span>
+   </div>
+
                       
                   
   <div class="form-group col-md-6 pd-20"> 
     <label class="form-label" for="form3Examplev2">Subcategory 1 name</label>
     <input type="text"  id="subcategory1_name" name="subcategory1_name" class="form-control form-control-lg"
     value="{{ i.subcategory1_name }}"/>
+    <span id="subcatspan"></span>
   </div>
                 
     
@@ -346,6 +284,8 @@ function validateConfirmPass(){
     <label class="form-label" for="form3Examplev2">Subcategory 2 name</label>
     <input type="text"  id="subcategory2_name" name="subcategory2_name" class="form-control form-control-lg"
     value="{{ i.subcategory2_name }}"/>
+    
+    <span id="subcat2span"></span>
   </div>
     
   <div class="form-group col-md-6 pd-20"> 

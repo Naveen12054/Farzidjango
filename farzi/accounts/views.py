@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth import login as auth_login ,authenticate, logout
 from django.shortcuts import render, redirect
@@ -18,20 +19,45 @@ def userlogin(request):
         password = request.POST.get('pass')
         print(email)  # Print the email for debugging
         print(password)  # Print the password for debugging
-
+        
         if email and password:
             user = authenticate(request, email=email, password=password)
             print("Authenticated user:", user)  # Print the user for debugging
-            if user is not None:
-                auth_login(request, user)
-                print("User authenticated:", user.email, user.role)
-                return redirect('http://127.0.0.1:8000/')
+            if user is not None and user.is_active:
+                        
+                        if user.is_active==False:
+                                print("Inside user.is_active check")
+                                auth_login(request, user)
+                                print(user.is_active)
+                                error_message = "Inactive login credentials."
+                                return render(request, 'login.html', {'error_message': error_message})
+                        else:
+
+                            if user.role==1:
+                                auth_login(request,user)
+                                print(user.role)
+                                return redirect('http://127.0.0.1:8000/')
+                            elif user.role==2:
+                                auth_login(request,user)
+                                print(user.role)
+                                return redirect('http://127.0.0.1:8000/accounts/sellerpage/')
+                            else:
+                                auth_login(request,user)
+                                print(user.role)
+                                return redirect('http://127.0.0.1:8000/accounts/admindashboard/')
+        #         auth_login(request, user)
+        #         print("User authenticated:", user.email, user.role)
+        #         return redirect('http://127.0.0.1:8000/')
+            
+            # if user.is_active:
+            #                     error_message = "Inactive login credentials."
+            #                     return render(request, 'login.html', {'error_message': error_message})
             else:
-                error_message = "Invalid login credentials."
+                error_message = "Invalid Login Attempt"
                 return render(request, 'login.html', {'error_message': error_message})
-        else:
-            error_message = "Please fill out all fields."
-            return render(request, 'login.html', {'error_message': error_message})
+        # else:
+        #     error_message = "Please fill out all fields."
+        #     return render(request, 'login.html', {'error_message': error_message})
 
     return render(request,'login.html')
                   
@@ -57,6 +83,64 @@ def register(request):
                 return redirect('login')  
             
     return render(request, 'register.html')
+
+# def profile(request):
+#     user_profile1 = request.user
+#     userid = user_profile1.id
+#     user_profile = None
+#     print(user_profile1)
+#     check=UserProfile.objects.filter(user_id=userid).exists()
+ 
+
+
+#     if request.method == 'POST':
+#         # Update user fields
+#         if check==True:
+#             user_profile = UserProfile.objects.get(user_id=userid)
+
+#             user_profile.first_name = request.POST.get('first_name')
+#             user_profile.last_name = request.POST.get('last_name')
+            
+#             user_profile.save()
+
+#              # Update user profile fields
+#             user_profile.country = request.POST.get('country')
+#             print(user_profile.country)
+#             user_profile.state = request.POST.get('state')
+#             user_profile.city = request.POST.get('city')
+#             user_profile.district = request.POST.get('district')
+#             user_profile.aphone_no = request.POST.get('aphone_no')
+#             user_profile.phone_no = request.POST.get('phone_no')
+#             user_profile.addressline1 = request.POST.get('addressline1')
+#             user_profile.addressline2 = request.POST.get('addressline2')
+#             user_profile.pin_code = request.POST.get('pin_code')
+#             user_profile.save()
+#         else:
+#             user=UserProfile(
+#                 phone_no = request.POST.get('phone_no'),
+
+#              # Update user profile fields
+#                 country = request.POST.get('country'),
+#                 state = request.POST.get('state'),
+#                 city = request.POST.get('city'),
+#                 district = request.POST.get('district'),
+#                 aphone_no = request.POST.get('aphone_no'),
+#                 addressline1 = request.POST.get('addressline1'),
+#                 addressline2 = request.POST.get('addressline2'),
+#                 pin_code = request.POST.get('pin_code'),
+#                 user_id=userid
+#             )
+#             user.save()
+
+#         return redirect('index')
+#     context = {
+#         'user': user_profile1,
+#         'user_profile': user_profile
+#     }
+#     return render(request, 'profile.html', context)
+
+
+
 def profile(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
@@ -72,7 +156,6 @@ def profile(request):
         user_profile.state = request.POST.get('state')
         user_profile.city = request.POST.get('city')
         user_profile.district = request.POST.get('district')
-        
         user_profile.aphone_no = request.POST.get('aphone_no')
         user_profile.phone_no = request.POST.get('phone_no')
         user_profile.addressline1 = request.POST.get('addressline1')
@@ -129,6 +212,7 @@ def seller(request):
         password = request.POST.get('pass', None)
         role = User.SELLER
         print(email)
+        
 
         if name1 and email and role and password:
             if User.objects.filter(email=email).exists():
@@ -152,7 +236,6 @@ def admindashboard(request):
 
 
 
-
 def category(request):
     stdata = Category.objects.filter(status=False)
     return render(request, "category.html", {'stdata': stdata})
@@ -166,10 +249,6 @@ def update(request, stid2):
         stid.subcategory2_name = request.POST.get('subcategory2_name')
         stid.subcategory3_name = request.POST.get('subcategory3_name')
         stid.subcategory4_name = request.POST.get('subcategory4_name')
-        stid.category_image = request.POST.get('category_image')
-
-        if 'category_image' in request.FILES:
-            stid.category_image = request.FILES['category_image']
 
         stid.save()
         return redirect("category")
@@ -202,13 +281,14 @@ def newcategory(request):
 #######################################################
 #To add Product 
 def sellerindex(request):
-    selected_category = request.GET.get('category')
+    
     stdata = Category.objects.all()
+    
     user = request.user
     userid = user.id
     if request.method == 'POST':
         # Create a new Category instance and assign values
-        newproduct = Product(
+        newproduct =    Product(
         product_name = request.POST.get('product_name'),
         brand_name = request.POST.get('brand_name'),
         product_description = request.POST.get('product_description'),
@@ -228,12 +308,46 @@ def sellerindex(request):
         return redirect("product")
     return render(request, "sellerindex.html",{'stdata': stdata})
 #######################################################
+def categoryajax(request, category):
+    stdata1 = Category.objects.filter(category_name=category).values('subcategory1_name', 'subcategory2_name', 'subcategory3_name', 'subcategory4_name')
+
+    # Extract the values from the queryset and add them to the data list
+    data = []
+    for item in stdata1:
+        data.extend(item.values())
+
+    # Print the data for debugging (optional)
+    print(data)
+
+    # Return the data as a JSON response
+    return JsonResponse(data, safe=False)
 #view the products
 def product(request):
     user_id=request.user.id
     stdata = Product.objects.filter(user_id=user_id,status=False)
     return render(request, "product.html", {'stdata': stdata})
 ######################################################
+def updateproduct(request, stid2):
+    stid=Product.objects.get(id=stid2)
+    stdata = Category.objects.all()
+    stid1=Product.objects.filter(id=stid2)
+    if request.method == 'POST':
+        
+        stid.product_name = request.POST.get('product_name')
+        stid.brand_name = request.POST.get('brand_name')
+        stid.product_description = request.POST.get('product_description')
+        stid.material_description = request.POST.get('material_description')
+        stid.price = request.POST.get('price')
+        stid.quantity = request.POST.get('quantity')
+        stid.category = request.POST.get('category')
+        stid.subcategory = request.POST.get('subcategory')
+
+        stid.save()
+        return redirect("product")
+
+    return render(request, 'updateproduct.html', {'stid1': stid1,'stdata':stdata})
+######################################################
+
 def deletecategory(request, stid2):
     dele=Category.objects.get(id=stid2)
     dele.status=True

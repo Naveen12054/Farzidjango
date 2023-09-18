@@ -46,16 +46,19 @@
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+            <li class="nav-item active"><a href="{% url 'separate' %}" class="nav-link">All</a></li>
             <li class="nav-item"><a href="about.html" class="nav-link">Sofa</a></li>
             
             <li class="nav-item"><a href="product.html" class="nav-link">Recliners</a></li>
             <li class="nav-item"><a href="pets.html" class="nav-link">Tables</a></li>
-            <li class="nav-item"><a href="services.html" class="nav-link">Chairs</a></li>
-        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Bed</a></li>
+            
+        <li class="nav-item"><a href="{% url 'full_list' %}" class="nav-link">Full</a></li>
+            <li class="nav-item"><a href="{% url 'custlive' %}" class="nav-link">Chairs</a></li>
+        <li class="nav-item"><a href="{% url 'product_list' %}" class="nav-link">Bed</a></li>
           <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Lounge Chairs</a></li>
             <li class="nav-item"><a href="contact.html" class="nav-link">Wardrobes</a></li>
             
+            <li class="nav-item"><a href="{% url 'catalog' %}" class="nav-link">Products Catalog</a></li>
             <li class="nav-item"><a href="{% url 'seller' %}" class="nav-link">Become a Seller</a></li>
         <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">
       </div>
@@ -70,8 +73,8 @@
         <div class="header-bottom-area header-sticky">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8 col-md-5 col-5 d-flex mt-2">
-                        <div class="logo " style="margin-top: 20px;  margin-right: 180px;">
+                    <div class="col-lg-6 col-md-5 col-5 d-flex mt-2">
+                        <div class="logo " style="margin-top: 20px;  margin-right: 10px;">
                             <a href="{% url 'index' %}">
                                 <img style="width:100px; height:80px;" src="{% static 'assets\images\logo\lo.jpg' %}" alt="hai"></a>
                         </div>
@@ -82,50 +85,67 @@
                         </div> 
                         
                     </div>
-                    <div class="col-lg-4 d-none d-lg-block ">
+                    <div class="col-lg-6 d-none d-lg-block " style="margin-top: -30px;">
                         <div class="main-menu-area text-center ">
                             <nav class="main-navigation ">
-                                <ul><li><a href="#" class="nav-link">
+                                <ul><li><a href="{% url 'wishlist' %}" class="nav-link">
                                         <img src="{% static 'assets/images/heart.png' %}" alt="" style="height: 20px;">
                                     </a></li>
-                                    <li><a href="#" class="nav-link">
+                                    <li><a href="{% url 'cart' %}" class="nav-link">
                                         <img src="{% static 'assets/images/cart.png' %}" alt="" style="height: 20px;">
                                     </a></li>
-        
-                                    <li><b>{{user.email}}</b>
-                                        <ul class="sub-menu">
-                                            {% if  user.is_authenticated %}
-                                            {% if user.role == 1 %}
-                                            <li ><h3>Customer</h3></li>
-                                            <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
-                                            <br>
-                                            <li><a href="{% url 'profile' %}" class="nav-item nav-link">Profile</a></li>
-                                            {% elif user.role == 2 %}
-                                            <li ><h3>Seller</h3></li>
-                                            <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
-                                            <br>
-                                            <li><a href="{% url 'sellerprofile' %}" class="nav-item nav-link">Profile</a></li>
-                                            <br>
-                                            <li><a href="{% url 'product' %}" class="nav-item nav-link">Product</a></li> 
-                                            <br>
-                                            <li><a href="{% url 'sellerindex' %}" class="nav-item nav-link">index</a></li>
+                                    <li><a href="#" class="nav-link">
+                                        {% if  user.is_authenticated %}
+                                                {% if user.role == 4 %}
+                                                <li><a href="{% url 'admindashboard' %}" class="nav-item nav-link">Dashboard</a></li>
+                                               
+                                                {% elif user.role == 2 %}
+                                                
+                                                <li><a href="{% url 'sellerpage' %}" class="nav-item nav-link">Dashboard</a></li>
+                                                {% elif user.role == 1 %}
+                                                <li><a href="{% url 'profile' %}" class="nav-item nav-link">Profile</a></li>
+                                        {% else %}
+                                       
+                                        {% endif %}
+                                                {% else %}
                                             
-                                            <br>
-                                            <li><a href="{% url 'sellerpage' %}" class="nav-item nav-link">Dashboard</a></li>
-                                    {% else %}
-                                    <li ><h3>Admin</h3></li>
-                                    <li><a href="{% url 'admindashboard' %}" class="nav-item nav-link">admindashboard</a></li>
-                                    <br>
-                                            <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
-                                            <br>
-                                    {% endif %}
-                                            {% else %}
-                                        </ul>
-                                    </li>
-                                    <li><a href="{% url 'login' %}" class="nav-link">
-                                        <img src="{% static 'assets/images/profile.png' %}" alt="" style="height: 20px;">
+                                        {% endif %}
                                     </a></li>
-                                    {% endif %}
+                                    {% comment %} {% if user.name == user.name %}
+                                    {{user.name}}
+                                    <ul class="sub-menu">
+                                        <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
+                                                <br>
+                                                
+                                    </ul>
+                                    {% else %}
+                                    {{user.email}}
+                                    {%endif%} {% endcomment %}
+                                    <li>
+                                        <b>{{user.email}}</b>
+                                        <ul class="sub-menu">
+                                                {% if  user.is_authenticated %}
+                                                {% if user.role == 1 %}
+                                                <li ><h3>Customer</h3></li>
+                                                <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
+                                                <br>
+                                                <li><a href="{% url 'profile' %}" class="nav-item nav-link">Profile</a></li>
+                                                {% elif user.role == 2 %}
+                                                
+                                                <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
+                                                
+                                        {% else %}
+                                        <br>
+                                                <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
+                                                <br>
+                                        {% endif %}
+                                                {% else %}
+                                            </ul>
+                                        </li>
+                                        <li><a href="{% url 'login' %}" class="nav-link">
+                                            <img src="{% static 'assets/images/profile.png' %}" alt="" style="height: 20px;">
+                                        </a></li>
+                                        {% endif %}
                                 </ul>
                             </nav>
                         </div>
